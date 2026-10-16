@@ -1,0 +1,65 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /birthdayWishes/{wishId} {
+      function validWish() {
+        return request.resource.data.keys().hasOnly([
+            'name', 'message', 'photoData', 'photoType', 'createdAt',
+            'reply', 'replyUpdatedAt', 'hidden'
+          ])
+          && request.resource.data.keys().hasAll([
+            'name', 'message', 'photoData', 'photoType', 'createdAt',
+            'reply', 'replyUpdatedAt', 'hidden'
+          ])
+          && request.resource.data.name is string
+          && request.resource.data.name.size() >= 1
+          && request.resource.data.name.size() <= 48
+          && request.resource.data.message is string
+          && request.resource.data.message.size() >= 1
+          && request.resource.data.message.size() <= 900
+          && request.resource.data.photoData is string
+          && request.resource.data.photoData.size() <= 300000
+          && request.resource.data.photoType is string
+          && request.resource.data.photoType.size() <= 30
+          && request.resource.data.reply is string
+          && request.resource.data.reply.size() == 0
+          && request.resource.data.replyUpdatedAt == null
+          && request.resource.data.hidden == false
+          && request.resource.data.createdAt == request.time;
+      }
+
+      function validModerationUpdate() {
+        return request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['reply', 'replyUpdatedAt', 'hidden', 'updatedAt'])
+          && request.resource.data.keys().hasOnly([
+            'name', 'message', 'photoData', 'photoType', 'createdAt',
+            'reply', 'replyUpdatedAt', 'hidden', 'updatedAt'
+          ])
+          && request.resource.data.name == resource.data.name
+          && request.resource.data.message == resource.data.message
+          && request.resource.data.photoData == resource.data.photoData
+          && request.resource.data.photoType == resource.data.photoType
+          && request.resource.data.createdAt == resource.data.createdAt
+          && request.resource.data.updatedAt == request.time
+          && (!request.resource.data.keys().hasAny(['reply'])
+            || (request.resource.data.reply is string
+              && request.resource.data.reply.size() <= 900))
+          && (!request.resource.data.keys().hasAny(['replyUpdatedAt'])
+            || request.resource.data.replyUpdatedAt == null
+            || request.resource.data.replyUpdatedAt == request.time)
+          && (!request.resource.data.keys().hasAny(['hidden'])
+            || request.resource.data.hidden is bool);
+      }
+
+      // Public visitors can submit text/photo wishes. The static guestbook gates
+      // viewing in the UI, but this read policy is public and is not a true access gate.
+      allow create: if validWish();
+      allow read: if true;
+
+      // Only moderation fields may change. For real production security, replace
+      // this public update permission with Firebase Auth/admin claims or a trusted backend.
+      allow update: if validModerationUpdate();
+      allow delete: if false;
+    }
+  }
+}

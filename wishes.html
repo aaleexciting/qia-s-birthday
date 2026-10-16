@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#350a0e">
+  <meta name="description" content="Birthday guestbook Aya — tulis ucapan, doa, atau pesan buat Aya.">
+  <title>Aya’s Birthday Guestbook ✦</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="wishes.css">
+</head>
+<body class="wishes-page">
+  <div class="wine-backdrop" aria-hidden="true"><span class="petal petal--one"></span><span class="petal petal--two"></span><span class="petal petal--three"></span><span class="petal petal--four"></span><span class="backdrop-glow"></span></div>
+  <main class="guestbook-shell">
+    <header class="guestbook-topline"><a class="back-link" href="index.html">← the little rewind</a><span class="edition">OCT 17 · BIRTHDAY EDITION</span></header>
+    <section class="invitation-card" aria-labelledby="pageTitle">
+      <div class="lace lace--top" aria-hidden="true"></div>
+      <div class="invitation-inner">
+        <div class="invitation-head">
+                    <div class="portrait-medallion"><img src="/media/aya.JPG" alt="Aya, from the birthday invitation portrait" width="290" height="555"></div>
+          <div class="invitation-copy">
+            <p class="eyebrow">AYA’S BIRTHDAY GUESTBOOK</p>
+            <h1 id="pageTitle">Aya’s Birthday <em>Guestbook</em></h1>
+            <div class="heart-rule" aria-hidden="true"><span></span><b>♥</b><span></span></div>
+            <p class="intro-copy">Hi, everyone! Makasih udah mampir dan ikut ngeramein hari ulang tahunku. Tulis ucapan, doa, atau pesan random di sini, ya. Hehe.</p>
+            <p class="intro-script">Your turn to write something! ✦</p>
+          </div>
+        </div>
+
+        <div class="stationery-divider" aria-hidden="true"><span>✦</span><span>YOUR TURN</span><span>✦</span></div>
+        <p class="guestbook-note">Kirim ucapanmu dulu, ya — setelah itu kamu bisa lihat pesan dari teman-teman yang lain juga. ✦</p>
+
+        <section class="write-panel" aria-labelledby="formTitle">
+          <div class="panel-heading"><span class="panel-number">01</span><div><p class="eyebrow">DROP A MESSAGE</p><h2 id="formTitle">Leave a Message</h2></div></div>
+          <form id="wishForm" class="wish-form">
+            <label class="field-label" for="wishName">Nama kamu <span>biar Aya tahu siapa yang mampir</span></label>
+            <input id="wishName" name="name" type="text" maxlength="48" autocomplete="name" placeholder="Nama atau nickname kamu" required>
+            <div class="field-label-row"><label class="field-label" for="wishMessage">Ucapan atau pesan</label><span id="messageCount" class="char-count">0 / 900</span></div>
+            <textarea id="wishMessage" name="message" maxlength="900" rows="5" placeholder="Tulis ucapan, doa, cerita lucu, atau inside joke…" required></textarea>
+            <div class="photo-row"><div><p class="field-label photo-label">Add a photo <span>(opsional)</span></p><p class="photo-hint">Foto otomatis dikecilkan sebelum disimpan.</p></div><label class="photo-picker" for="wishPhoto">＋ Pilih Foto</label><input id="wishPhoto" name="photo" type="file" accept="image/*" hidden></div>
+            <div id="photoPreview" class="photo-preview" hidden><img id="photoPreviewImage" alt="Photo attached to your wish"><div><strong id="photoFileName">Foto pilihanmu</strong><small id="photoSizeHint">Foto akan otomatis dikecilkan sebelum disimpan.</small></div><button id="removePhoto" class="remove-photo" type="button" aria-label="Remove attached photo">×</button></div>
+            <p class="form-privacy">Pesanmu muncul di guestbook setelah dikirim. Tulis yang seru, tapi tetap sopan ya hehe.</p>
+            <button id="submitWish" class="submit-wish" type="submit"><span>Kirim Pesan</span><b aria-hidden="true">↗</b></button>
+            <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section id="guestbookWall" class="guestbook-wall" aria-labelledby="wallTitle" hidden>
+          <div class="wall-heading"><div><p class="eyebrow">THE GUESTBOOK IS OPEN</p><h2 id="wallTitle">Messages from everyone ✦</h2><p class="wall-intro">Ucapan dari teman-teman dan orang-orang yang mampir juga ada di sini. Scroll santai, ya!</p></div><div class="wall-count"><strong id="wallCount">0</strong><span>messages</span></div></div>
+          <div id="wishesList" class="wishes-list" aria-live="polite"><div class="wall-empty"><span>✦</span><p>Lagi ambil pesan-pesannya…</p></div></div>
+          <p class="wall-footnote">Makasih udah ikut ngeramein birthday guestbook ini ✦</p>
+        </section>
+
+        <footer class="invitation-footer"><span class="footer-seal" aria-hidden="true">✦</span><p>Makasih udah mampir. See you around!</p><span class="footer-star" aria-hidden="true">✦</span></footer>
+      </div>
+      <div class="lace lace--bottom" aria-hidden="true"></div>
+      <div class="red-wax-seal" aria-hidden="true"><span>A</span></div>
+    </section>
+    <p class="page-footnote">AYA’S BIRTHDAY GUESTBOOK · MESSAGE BOARD OPEN</p>
+  </main>
+  <script type="module" src="wishes.js"></script>
+</body>
+</html>
