@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300" role="img" aria-labelledby="title desc">
+<title id="title">A little cat portrait</title><desc id="desc">A warm, hand-drawn tabby cat illustration on a cream background.</desc>
+<defs><linearGradient id="fur" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8bd91"/><stop offset="1" stop-color="#b77e5e"/></linearGradient><linearGradient id="bib" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff6e6"/><stop offset="1" stop-color="#edd6c5"/></linearGradient></defs>
+<ellipse cx="161" cy="265" rx="106" ry="15" fill="#6f2530" opacity=".10"/>
+<path d="M77 112 67 33q-1-13 12-4l54 40M243 112l10-79q1-13-12-4l-54 40" fill="#9a5d47" stroke="#57252a" stroke-width="5" stroke-linejoin="round"/>
+<path d="m91 86-7-36 31 25m113 11 7-36-31 25" fill="#d88e8a"/>
+<path d="M66 140c0-56 40-91 95-91s96 35 96 91c0 57-37 101-96 101S66 197 66 140Z" fill="url(#fur)" stroke="#57252a" stroke-width="5"/>
+<path d="M94 86q20 20 18 47m94-47q-20 20-18 47M126 61q-8 21-3 37m67-37q8 21 3 37" fill="none" stroke="#754233" stroke-width="8" stroke-linecap="round"/>
+<path d="M110 142q16-13 31 0m39 0q16-13 31 0" fill="none" stroke="#57252a" stroke-width="7" stroke-linecap="round"/>
+<ellipse cx="126" cy="145" rx="5" ry="7" fill="#392529"/><ellipse cx="194" cy="145" rx="5" ry="7" fill="#392529"/>
+<path d="m151 166 10 7 10-7q-1 16-10 16t-10-16Z" fill="#ad4f61" stroke="#57252a" stroke-width="3" stroke-linejoin="round"/>
+<path d="M161 182q-13 16-27 0m27 0q13 16 27 0" fill="none" stroke="#57252a" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M86 172 42 166m47 22-43 8m188-24 44-6m-45 28 44 8" fill="none" stroke="#fff1df" stroke-width="3" stroke-linecap="round"/>
+<path d="M103 223q-27 2-34 34l-3 16h190l-3-16q-7-32-34-34l-24 12h-68Z" fill="url(#bib)" stroke="#57252a" stroke-width="4" stroke-linejoin="round"/>
+<path d="M134 223q27 24 54 0" fill="none" stroke="#c88f8c" stroke-width="4" stroke-linecap="round"/>
+<path d="M95 248q-13 14-15 26m145-26q13 14 15 26" fill="none" stroke="#d1a88b" stroke-width="5" stroke-linecap="round"/>
+<path d="M33 66q12-13 24 0t24 0" fill="none" stroke="#b74c53" stroke-width="4" stroke-linecap="round"/><path d="M242 52l7 10 12-1-6 10 4 11-11-4-9 7 1-12-9-7 12-2Z" fill="#c88b43"/>
+</svg>
