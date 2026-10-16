@@ -19,7 +19,7 @@ window.REWIND_STORY = [
     id: "beginning", chapter: "THE BEGINNING", date: "MARCH", title: "Two little black cats.",
     paragraphs: [
       "Two black cats brought us together in March.",
-      "Even though Jiji isn't here with us anymore, I like to think she'd be happy seeing how far we've come because of that little beginning.",
+      "Even though Jiji isn't here with us anymore, I like to think she'd be happy seeing how far we've come.",
       "Look at us now. Who would've thought we'd end up here? ♡"
     ], art: "cats", theme: "cream", layout: "standard", cta: "Meet Kiki", media: [
       { type: "image", src: "/media/1.webp", ratio: "4 / 3", fit: "cover", label: "A photo of Jiji or the two cats", icon: "🐈‍⬛", caption: "Where our story quietly began" }
@@ -29,7 +29,7 @@ window.REWIND_STORY = [
     id: "kiki", chapter: "AND OF COURSE, KIKI", date: "MARCH", title: "Kiki and her trash-can talent.",
     paragraphs: [
       "Kiki, I wish I had more pictures of you.",
-      "Somehow, the one I do have is this absolute goof balancing in a trash can like it's the most normal place in the world. I would've loved a whole album of your little antics. ♡"
+      "Somehow, the one I do have is this absolute goof balancing in a trash can like it's the most normal place in the world."
     ], art: "kiki", theme: "peach", layout: "portrait", cta: "Back to our calls", media: [
       { type: "image", src: "/media/2.webp", ratio: "3 / 4", fit: "fill", label: "Kiki balancing in the trash can", icon: "🐈", caption: "One picture, maximum silliness" }
     ]
@@ -39,7 +39,6 @@ window.REWIND_STORY = [
     paragraphs: [
       "Remember those hours-long calls playing Indian Truck Driving on Roblox, just ragebaiting players trying to finish the game?",
       "And that time you told me about our first call, how you were so excited you couldn't even keep your legs still?",
-      "It's funny how even back then, talking to each other could make us that happy.",
       "Now, promise me you won't move your legs while reading this, okay? (¬‿¬)"
     ], art: "calls", theme: "blue", layout: "standard", cta: "I promise… maybe", media: [
       { type: "image", src: "/media/3.webp", ratio: "16 / 9", fit: "cover", label: "A screenshot or photo from our late-night calls", icon: "☎️", caption: "Hours that felt like minutes" }
@@ -49,7 +48,7 @@ window.REWIND_STORY = [
     id: "mako", chapter: "MARCH 29 · MAKO", date: "MARCH 29", title: "The first place that saw us.",
     paragraphs: [
       "Mako was the first place that saw us two.",
-      "That day was the first time you saw me in my blue layered outfit in real life and caught the smell of my Mexicola. I still remember those little details. ♡"
+      "That day was the first time you saw me in my blue layered outfit in real life and caught the smell of my Mexicola. ♡"
     ], art: "mako", theme: "sand", layout: "standard", backgroundSrc: "media/bg1.webp", cta: "Look at that day", media: [
       { type: "image", src: "/media/4.webp", ratio: "3 / 4", fit: "cover", label: "A photo of us from our first Mako date", icon: "📷", caption: "March 29 · Our First Hello" }
     ]
@@ -81,7 +80,7 @@ window.REWIND_STORY = [
     id: "little-things", chapter: "THE EVERYDAY US", date: "EVERY DAY", title: "All the little ways we became us.",
     paragraphs: [
       "Looking back, it's not just the milestones. I'm grateful I get to be this close to you and share all these tiny pieces of life with you.",
-      "The nightly sleep calls, food pictures before every meal, sharing reels, talking about our day, letting you do my makeup, driving you home or taking you to latihan... I love how ordinary things turn into our things.",
+      "The nightly sleep calls, food pictures before every meal, sharing reels, talking about our day, letting you do my makeup, driving you home or taking you to latihan...",
       "And yes, seeing you in my Bocchi jacket is still one of my favorite things. ♡"
     ], art: "scrapbook", theme: "lavender", layout: "standard", cta: "A few more little things"
   },
@@ -116,7 +115,6 @@ window.REWIND_STORY = [
     id: "train", chapter: "MAY 1 · THE TRAIN RIDE", date: "MAY 1", title: "The ride before the rink.", kicker: "A quiet little moment on the way to ice skating",
     paragraphs: [
       "On our way to the ice rink, you fell asleep on my shoulder. I remember sitting extra still, just happy to have you close.",
-      "Somehow, even the quiet moments with you are the ones that stay with me. ♡"
     ], art: "train", theme: "ice", layout: "standard", cta: "A little portrait break", media: [
       { type: "image", src: "/media/17.webp", ratio: "16 / 9", fit: "cover", label: "A photo from the train ride to the rink", icon: "🚆", caption: "On our way to the rink" }
     ]
@@ -149,8 +147,8 @@ window.REWIND_STORY = [
     id: "may1-question", chapter: "MAY 1 · THAT NIGHT", date: "MAY 1 · THAT NIGHT", title: "You said yes.",
     paragraphs: [
       "That night on the rooftop, holding mini baobao in my Bocchi jacket, my heart was racing.",
-      "I'd spent minutes outside the toilet rehearsing what to say, then forgot how to form the simplest sentence because I was so nervous.",
-      "But you said yes. Mini baobao found his home, and we became us. Then we ran for our lives so we wouldn't miss the train. (˶ᵔ ᵕ ᵔ˶)"
+      "Now I admit. I'd spent minutes outside the toilet rehearsing what to say, then forgot how to form the simplest sentence because I was so nervous.",
+      "You said yes. Mini baobao found his home, and we became us. Then we ran for our lives so we wouldn't miss the train. (˶ᵔ ᵕ ᵔ˶)"
     ], art: "proposal", theme: "night", layout: "proposal", backgroundSrc: "media/bg2.webp", cta: "One tiny keepsake", media: [
       { type: "image", src: "/media/23.webp", ratio: "3 / 4", fit: "cover", label: "Our rooftop moment", icon: "🌙", caption: "The night we became us" },
       { type: "image", src: "/media/24.webp", ratio: "3 / 4", fit: "cover", label: "Mini baobao", icon: "🧸", caption: "He found his home" }
@@ -207,22 +205,48 @@ window.REWIND_STORY = [
     id: "aug18", chapter: "AUGUST 18 · SIDANG", date: "AUGUST 18", title: "I did it. And you were there.",
     paragraphs: [
       "Finally done with my sidang skripsi!",
-      "I really couldn't have made it through without you sticking by my side. Thank you for coming to my campus, and for the adorable note and chocolate you gave me earlier.",
+      "I really couldn't have made it through without you sticking by my side. Thank you for coming to my campus, and for the adorable note, milk, and chocolate you gave me earlier.",
       "You were there for me on a day that meant so much, and that made it even more special. I'll always be grateful I got to share this part of my life with you, sayang. ♡"
     ], art: "grad", theme: "plum", layout: "standard", cta: "One last little note", media: [
-      { type: "image", src: "", ratio: "4 / 3", fit: "cover", label: "A photo from thesis defense day", icon: "🎓", caption: "August 18 · One big day" },
-      { type: "image", src: "", ratio: "4 / 3", fit: "cover", label: "The note or chocolate she gave me", icon: "💌", caption: "Your note and chocolate" }
+      { type: "image", src: "/media/33.webp", ratio: "4 / 3", fit: "cover", label: "A photo from thesis defense day", icon: "🎓", caption: "August 18 · One big day" },
+      { type: "image", src: "/media/34.webp", ratio: "4 / 3", fit: "cover", label: "The note or chocolate she gave me", icon: "💌", caption: "Your note and chocolate" }
     ]
   },
   {
     id: "memory-flashback", chapter: "OUR FAVORITE LITTLE THINGS", date: "A LITTLE FLASHBACK", title: "A few moments, all ours.",
     paragraphs: [], art: "flashback", theme: "lavender", layout: "slideshow", cta: "Back to today", media: [
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Flashback photo one", icon: "♡", date: "MARCH 29 · MAKO", caption: "The first hello" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Flashback photo two", icon: "🍜", date: "APRIL 6 · RAMEN DATE", caption: "Our second date" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Flashback photo three", icon: "⛸️", date: "MAY 1 · THE RINK", caption: "The day we became us" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Flashback photo four", icon: "🎤", date: "MAY 9 · UNTIRTA", caption: "Front-row cheering" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Flashback photo five", icon: "🏡", date: "JUNE 19 · HOME", caption: "Two nights that felt like home" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "JULY 9 · TAKE TWO", caption: "Same place, more us" }
+      { type: "image", src: "/media/35.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo one", icon: "♡", date: "APRIL 13", caption: "The first time we're holding hand" },
+      { type: "image", src: "/media/36.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo two", icon: "🍜", date: "APRIL 6", caption: "Welcome home!" },
+      { type: "image", src: "/media/37.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo three", icon: "⛸️", date: "APRIL 15", caption: "Tell me more about makeup" },
+      { type: "image", src: "/media/38.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo four", icon: "🎤", date: "APRIL 15", caption: "Don't dissapear! TuT" },
+      { type: "image", src: "/media/39.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo five", icon: "🏡", date: "APRIL 20", caption: "You're me, but in pink" },
+      { type: "image", src: "/media/40.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "APRIL 20", caption: "You're me, but in pink" },
+      { type: "image", src: "/media/41.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "APRIL 20", caption: "I like to be on your lap" },
+      { type: "image", src: "/media/42.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "APRIL 20", caption: "We're not going, but we ate well" },
+      { type: "image", src: "/media/43.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "APRIL 26", caption: "You're in my wallet!" },
+      { type: "image", src: "/media/44.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "JULY MAY 8", caption: "Nice to meet you, Lulu" },
+      { type: "image", src: "/media/45.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: "We're cute :3" },
+      { type: "image", src: "/media/46.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: "Mewo!" },
+      { type: "image", src: "/media/47.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: "Blehe" },
+      { type: "image", src: "/media/48.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: ":))" },
+      { type: "image", src: "/media/49.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: "She's Mine!" },
+      { type: "image", src: "/media/50.webp", ratio: "4 / 5", fit: "fit", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: "Hi Twin!" },
+      { type: "image", src: "/media/51.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "MAY 23", caption: "More songs to cover" },
+      { type: "image", src: "/media/52.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "MAY 25", caption: "I'm craving your meal until now :(" },
+      { type: "image", src: "/media/53.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "THE DAY BEFORE IED ADHA", caption: "Lockscreen material" },
+      { type: "image", src: "/media/54.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "MAY 29", caption: "I'm so proud of you bei!" },
+      { type: "image", src: "/media/55.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "MAY 30", caption: "Well, i see myself beocoming cute girl :3" },
+      { type: "image", src: "/media/56.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "MAY 31", caption: "Tobelii, you're soo adorable.." },
+      { type: "image", src: "/media/57.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "JUNE 1", caption: "It's hanging on my board now" },
+      { type: "image", src: "/media/58.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "JUNE 13 ", caption: "You cook me a perfect fried rice!" },
+      { type: "image", src: "/media/59.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "JUNE 28", caption: "We're matching in black owo" },
+      { type: "image", src: "/media/60.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "JULY 8", caption: "I feel so loved <3" },
+      { type: "image", src: "/media/61.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "AUG 18", caption: "Thanks for coming" },
+      { type: "image", src: "/media/62.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "SEPT 6", caption: "Hehhe" },
+      { type: "image", src: "/media/63.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "SEPT 19 · TAKE TWO", caption: "So happi to cheki with you" },
+      { type: "image", src: "/media/64.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "OCT 11", caption: "My best meal ever!" },
+
+      
     ]
   },
   {
@@ -332,10 +356,10 @@ window.REWIND_STORY = [
     kicker: "They all came to wish you a happy birthday.",
     paragraphs: ["Mini Baobao, the Bocchi figure you gave me, my shark slippers, and Manis have all gathered for a tiny birthday party. They may not know how to sing, but they're all wishing you the happiest birthday, sayang. ♡"],
     art: "birthday-crew", theme: "pink", layout: "birthday-crew", cta: "The cats want in, too", media: [
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Mini Baobao", frameName: "Mini Baobao", icon: "🧸", caption: "Mini Baobao" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Bocchi figure", frameName: "Bocchi", icon: "🎸", caption: "Bocchi" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Shark slippers", frameName: "Shark Slippers", icon: "🦈", caption: "Shark Slippers" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Manis", frameName: "Manis", icon: "🐈", caption: "Manis" }
+      { type: "image", src: "/media/baobao.webp", ratio: "4 / 5", fit: "cover", label: "Mini Baobao", frameName: "Mini Baobao", icon: "🧸", caption: "Mini Baobao" },
+      { type: "image", src: "/media/bocchi.webp", ratio: "4 / 5", fit: "cover", label: "Bocchi figure", frameName: "Bocchi", icon: "🎸", caption: "Bocchi" },
+      { type: "image", src: "/media/shark.webp", ratio: "4 / 5", fit: "cover", label: "Shark slippers", frameName: "Shark Slippers", icon: "🦈", caption: "My Shark Slippers" },
+      { type: "image", src: "/media/manis.webp", ratio: "4 / 5", fit: "cover", label: "Manis", frameName: "Manis", icon: "🐈", caption: "Manis" }
     ]
   },
   {
@@ -343,10 +367,10 @@ window.REWIND_STORY = [
     kicker: "Your little cat squad is on birthday duty.",
     paragraphs: ["Lulu, Kaliko, Dishwasher, and Si Item have one very important job today: sending birthday purrs and extra cuddles your way. And all the other cats around your house are cheering for you, too. ♡"],
     art: "birthday-cats", theme: "cream", layout: "birthday-cats", cta: "One last thing, sayang", media: [
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Lulu", frameName: "Lulu", icon: "🐈", caption: "Lulu" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Kaliko", frameName: "Kaliko", icon: "🐈", caption: "Kaliko" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Dishwasher", frameName: "Dishwasher", icon: "🐈", caption: "Dishwasher" },
-      { type: "image", src: "", ratio: "4 / 5", fit: "cover", label: "Si Item", frameName: "Si Item", icon: "🐈‍⬛", caption: "Si Item" },
+      { type: "image", src: "/media/lulu.webp", ratio: "4 / 5", fit: "cover", label: "Lulu", frameName: "Lulu", icon: "🐈", caption: "Lulu" },
+      { type: "image", src: "/media/kaliko.webp", ratio: "4 / 5", fit: "cover", label: "Kaliko", frameName: "Kaliko", icon: "🐈", caption: "Netanyahu" },
+      { type: "image", src: "/media/dishwasher.webp", ratio: "4 / 5", fit: "cover", label: "Dishwasher", frameName: "Dishwasher", icon: "🐈", caption: "Dishwasher" },
+      { type: "image", src: "/media/nigger.webp", ratio: "4 / 5", fit: "cover", label: "Si Item", frameName: "Si Item", icon: "🐈‍⬛", caption: "Si Item" },
     ]
   },
   {
