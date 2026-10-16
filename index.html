@@ -16,7 +16,11 @@
   <section class="cat-gate" id="catGate" aria-labelledby="catGateTitle" aria-describedby="catGateCopy">
     <div class="cat-gate-card">
       <p class="cat-gate-kicker">THE PRIVATE REWIND</p>
-      <img class="cat-gate-art" src="media/dishwasher.webp" alt="A little illustrated cat portrait">
+      <div class="cat-gate-art-frame" aria-label="A cute framed photo of Dishwasher">
+        <span class="cat-gate-frame-sticker" aria-hidden="true">♡</span>
+        <img class="cat-gate-art" src="media/dishwasher.webp" alt="Dishwasher, the little cat">
+        <span class="cat-gate-frame-caption" aria-hidden="true">dishwasher ♡</span>
+      </div>
       <h1 id="catGateTitle">Who's this little guy?</h1>
       <p class="cat-gate-copy" id="catGateCopy">What’s this cat called? Get it right and Aya’s birthday rewind is all yours. Hehe.</p>
       <form class="cat-gate-form" id="catGateForm">
@@ -49,7 +53,7 @@
         <span class="brand-disc" aria-hidden="true"><span></span><span></span><span></span></span>
         <span class="brand-copy"><strong>Our little Rewind</strong><small>OUR MEMORY ALBUM</small></span>
       </button>
-      <button class="sound-button" id="soundButton" type="button" aria-pressed="false" aria-label="Start background music" title="Background music starts on your first interaction">♫</button>
+      <button class="sound-button" id="soundButton" type="button" aria-pressed="false" aria-label="Start background music" title="Tap ‘Tap to rewind’ to start the soundtrack">♫</button>
       <div class="heart-score" id="heartScore" role="status" aria-live="polite" aria-label="0 little hearts collected" title="Visit each moment and tap the little stickers to collect bonus hearts"><span aria-hidden="true">♡</span><strong id="heartCount">00</strong></div>
       <button class="map-button" id="mapButton" type="button" aria-haspopup="dialog" aria-controls="storyMap">
         <span class="map-grid" aria-hidden="true"><i></i><i></i><i></i><i></i></span>

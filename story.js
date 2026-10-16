@@ -230,7 +230,7 @@ window.REWIND_STORY = [
       { type: "image", src: "/media/47.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: "Blehe" },
       { type: "image", src: "/media/48.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: ":))" },
       { type: "image", src: "/media/49.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: "She's Mine!" },
-      { type: "image", src: "/media/50.webp", ratio: "4 / 5", fit: "fit", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: "Hi Twin!" },
+      { type: "image", src: "/media/50.webp", ratio: "4 / 5", fit: "contain", label: "Flashback photo six", icon: "🪞", date: "Our house", caption: "Hi Twin!" },
       { type: "image", src: "/media/51.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "MAY 23", caption: "More songs to cover" },
       { type: "image", src: "/media/52.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "MAY 25", caption: "I'm craving your meal until now :(" },
       { type: "image", src: "/media/53.webp", ratio: "4 / 5", fit: "cover", label: "Flashback photo six", icon: "🪞", date: "THE DAY BEFORE IED ADHA", caption: "Lockscreen material" },

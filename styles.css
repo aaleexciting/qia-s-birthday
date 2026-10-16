@@ -1522,3 +1522,154 @@ body.is-locked .app-shell, body.is-locked .desktop-note, body.is-locked .ambient
   .brand-copy small { font-size:.41rem; }
   .guestbook-nav-button { padding:6px 5px; }
 }
+
+/* Flashback slideshow polish: keep the scene stable and dissolve the new image over the old one. */
+.story-scene.layout-slideshow.is-photo-changing {
+  animation: none !important;
+  opacity: 1;
+  transform: none;
+}
+.slideshow-frame {
+  background: #392d43;
+}
+.slideshow-photo {
+  z-index: 1;
+  background: transparent;
+  animation-name: var(--slide-animation, slideshow-pan-0);
+  animation-duration: 8.8s;
+  animation-timing-function: cubic-bezier(.12, .82, .22, 1);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: both;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.slideshow-photo--motion-0 { --slide-animation: slideshow-pan-0; }
+.slideshow-photo--motion-1 { --slide-animation: slideshow-pan-1; }
+.slideshow-photo--motion-2 { --slide-animation: slideshow-pan-2; }
+.slideshow-photo--motion-3 { --slide-animation: slideshow-pan-3; }
+.slideshow-photo.is-landscape {
+  --slide-animation: slideshow-landscape-drift;
+  object-fit: contain !important;
+  background: linear-gradient(145deg, #e8dce9, #d8cfdf 55%, #eaded8);
+}
+/* Only the incoming picture fades. The outgoing one stays fully opaque below it,
+   so the frame background can never flash through during the dissolve. */
+.slideshow-photo--blend-in {
+  z-index: 2;
+  animation-name: slideshow-photo-crossfade-in, var(--slide-animation, slideshow-pan-0);
+  animation-duration: .72s, 8.8s;
+  animation-timing-function: cubic-bezier(.22, .61, .36, 1), cubic-bezier(.12, .82, .22, 1);
+  animation-delay: 0s, 0s;
+  animation-iteration-count: 1, infinite;
+  animation-direction: normal, alternate;
+  animation-fill-mode: both, both;
+  will-change: opacity, transform;
+}
+.slideshow-photo--outgoing {
+  z-index: 1;
+  opacity: 1 !important;
+  animation: none !important;
+  transform: none;
+  pointer-events: none;
+}
+.slideshow-placeholder--blend-in { z-index: 2; animation: slideshow-photo-crossfade-in .72s cubic-bezier(.22, .61, .36, 1) both; }
+.slideshow-placeholder--outgoing { z-index: 1; opacity: 1; animation: none !important; pointer-events: none; }
+.slideshow-frame.is-transitioning .slideshow-caption { animation: slideshow-caption-in .52s ease both; }
+.slideshow-frame.is-transitioning .slideshow-photo-count { animation: slideshow-caption-in .52s ease both; }
+@keyframes slideshow-pan-0 { from { transform: scale(1.045) translate(-2.7%, -1.8%); } to { transform: scale(1.225) translate(2.5%, 1.55%); } }
+@keyframes slideshow-pan-1 { from { transform: scale(1.205) translate(2.2%, -1.9%); } to { transform: scale(1.045) translate(-2.65%, 1.85%); } }
+@keyframes slideshow-pan-2 { from { transform: scale(1.055) translate(-2.5%, 1.75%); } to { transform: scale(1.215) translate(2.25%, -1.8%); } }
+@keyframes slideshow-pan-3 { from { transform: scale(1.22) translate(2.45%, 1.7%); } to { transform: scale(1.05) translate(-2.25%, -1.7%); } }
+@keyframes slideshow-landscape-drift { from { transform: scale(1.025) translate(-1.6%, .9%); } to { transform: scale(1.115) translate(1.5%, -.9%); } }
+@keyframes slideshow-photo-crossfade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideshow-caption-in { from { opacity: .55; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* A scrapbook-like little frame for Dishwasher on the password gate. */
+.cat-gate-art-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 158px;
+  min-height: 175px;
+  margin: 13px auto 16px;
+  padding: 9px 9px 7px;
+  border: 2px solid #e5b5c2;
+  border-radius: 24px 19px 25px 18px;
+  background: linear-gradient(150deg, #fffdf8, #fff4f0 58%, #f6e8f6);
+  box-shadow: 0 10px 22px rgba(99, 48, 65, .13), inset 0 0 0 3px rgba(255,255,255,.8);
+  transform: rotate(-1.6deg);
+}
+.cat-gate-art-frame::before {
+  content: "✧";
+  position: absolute;
+  left: -10px;
+  bottom: 30px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: #a75a78;
+  background: #fff5f2;
+  box-shadow: 0 3px 9px rgba(105, 52, 80, .12);
+  font-size: 1rem;
+}
+.cat-gate-art-frame::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(177, 111, 139, .27);
+  border-radius: 17px 14px 19px 13px;
+  pointer-events: none;
+}
+.cat-gate-card .cat-gate-art {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 124px;
+  flex: 0 0 124px;
+  margin: 0;
+  border-radius: 15px 12px 15px 12px;
+  object-fit: contain;
+  background: radial-gradient(circle at 50% 35%, #fffaf4, #f8e8ed 75%);
+  filter: drop-shadow(0 4px 3px rgba(65,27,27,.08));
+}
+.cat-gate-frame-sticker {
+  position: absolute;
+  z-index: 3;
+  top: -12px;
+  right: -11px;
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  border: 2px solid rgba(255,255,255,.9);
+  border-radius: 50%;
+  color: #fff8f5;
+  background: linear-gradient(145deg, #dc8ca7, #bd668a);
+  box-shadow: 0 4px 10px rgba(111, 50, 78, .2);
+  font: 1.12rem/1 Georgia, serif;
+  transform: rotate(12deg);
+}
+.cat-gate-frame-caption {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding-top: 7px;
+  color: #9e617c;
+  font: italic 600 .7rem/1.2 Georgia, serif;
+  letter-spacing: .035em;
+}
+@media (max-width: 380px) {
+  .cat-gate-card .cat-gate-art-frame { width: 146px; min-height: 164px; margin-top: 11px; margin-bottom: 14px; padding: 8px 8px 6px; }
+  .cat-gate-card .cat-gate-art { height: 116px; flex-basis: 116px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slideshow-photo, .slideshow-photo--blend-in, .slideshow-photo--outgoing,
+  .slideshow-placeholder--blend-in, .slideshow-placeholder--outgoing,
+  .slideshow-frame.is-transitioning .slideshow-caption,
+  .slideshow-frame.is-transitioning .slideshow-photo-count { animation: none !important; }
+}

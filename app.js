@@ -39,7 +39,6 @@
   let musicStarted = false;
   let musicAttemptInFlight = false;
   let musicUnavailable = false;
-  let musicGestureBound = true;
   let heartsCollected = 0;
   let heartScoreTimer = null;
   let birthdayCycleTimer = null;
@@ -49,6 +48,8 @@
   const visitedMoments = new Set();
   const bonusHeartMoments = new Set();
   const slideshowIndices = new Map();
+  const slideshowTransitions = new Map();
+  const slideshowNavigationTokens = new Map();
 
   const pad = value => String(value).padStart(2, "0");
   const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, char => ({
@@ -185,35 +186,57 @@
       if (!ctx) return;
       switch (kind) {
         case "next":
-          playTone(ctx, 590, 0, .105, .026, "triangle", 720);
-          playTone(ctx, 790, .065, .135, .022, "sine", 960);
-          playSoftWhoosh(ctx, .008, .1);
+          // A brighter, bouncy three-note chime with a soft page-swish underneath.
+          playTone(ctx, 587, 0, .12, .043, "triangle", 740);
+          playTone(ctx, 784, .055, .14, .039, "sine", 988);
+          playTone(ctx, 1175, .12, .17, .032, "sine", 1397);
+          playSoftWhoosh(ctx, .015, .13);
           break;
         case "back":
-          playTone(ctx, 820, 0, .095, .018, "sine", 640);
-          playTone(ctx, 620, .055, .12, .018, "triangle", 520);
+          playTone(ctx, 880, 0, .105, .035, "sine", 698);
+          playTone(ctx, 659, .055, .13, .032, "triangle", 494);
+          playSoftWhoosh(ctx, .009, .09);
           break;
         case "open":
         case "reveal":
-          [523, 659, 784, 1047].forEach((frequency, index) => playTone(ctx, frequency, index * .045, .18, .018, "sine"));
-          if (kind === "reveal") playSoftWhoosh(ctx, .012, .19);
+          [523, 659, 784, 1047, 1318].forEach((frequency, index) => playTone(ctx, frequency, index * .042, .19, .032 - index * .002, "sine"));
+          playTone(ctx, 1568, .16, .12, .018, "triangle", 1760);
+          if (kind === "reveal") playSoftWhoosh(ctx, .019, .2);
           break;
         case "slide":
-          playSoftWhoosh(ctx, .02, .16);
-          playTone(ctx, 460, .01, .1, .012, "triangle", 710);
+          playSoftWhoosh(ctx, .027, .2);
+          playTone(ctx, 440, .01, .105, .027, "triangle", 659);
+          playTone(ctx, 880, .1, .11, .018, "sine", 1047);
           break;
         case "heart":
-          playTone(ctx, 784, 0, .12, .024, "sine");
-          playTone(ctx, 988, .06, .16, .022, "sine");
-          playTone(ctx, 1318, .12, .2, .016, "sine");
+          playTone(ctx, 784, 0, .13, .043, "sine");
+          playTone(ctx, 988, .055, .17, .039, "sine");
+          playTone(ctx, 1318, .11, .21, .032, "sine");
+          playTone(ctx, 1568, .17, .15, .021, "sine");
           break;
         case "complete":
-          [523, 659, 784, 988, 1175].forEach((frequency, index) => playTone(ctx, frequency, index * .07, .22, .021, "sine"));
-          playSoftWhoosh(ctx, .013, .24);
+          [523, 659, 784, 988, 1175, 1397].forEach((frequency, index) => playTone(ctx, frequency, index * .065, .24, .034, "sine"));
+          playSoftWhoosh(ctx, .022, .27);
+          break;
+        case "pop":
+          playTone(ctx, 720, 0, .055, .04, "sine", 1080);
+          playTone(ctx, 1180, .035, .09, .027, "triangle", 920);
+          break;
+        case "sparkle":
+          playTone(ctx, 1047, 0, .12, .035, "sine", 1175);
+          playTone(ctx, 1397, .045, .14, .029, "sine", 1568);
+          playTone(ctx, 1760, .1, .19, .023, "sine", 2093);
+          playSoftWhoosh(ctx, .012, .17);
+          break;
+        case "boop":
+          playTone(ctx, 420, 0, .075, .038, "triangle", 610);
+          playTone(ctx, 760, .065, .09, .028, "sine", 680);
           break;
         case "tap":
         default:
-          playTone(ctx, 630, 0, .06, .018, "triangle", 410);
+          // Little two-part plip, more toy-like than the old single low click.
+          playTone(ctx, 740, 0, .055, .038, "sine", 1040);
+          playTone(ctx, 1175, .035, .075, .026, "triangle", 880);
           break;
       }
     } catch (_) { /* Audio is a progressive enhancement; the story still works silently. */ }
@@ -301,9 +324,10 @@
     const fit = media.fit === "contain" ? "contain" : "cover";
     const src = media.src || "";
     const type = media.type === "video" ? "video" : "image";
+    const autoPlayRinkVideo = type === "video" && currentMoment().id === "skating-video";
     const mediaContent = src
       ? (type === "video"
-        ? `<video src="${escapeHTML(src)}" playsinline controls preload="metadata" aria-label="${escapeHTML(media.label || "A memory video")}"></video>`
+        ? `<video src="${escapeHTML(src)}" ${autoPlayRinkVideo ? "autoplay muted" : ""} playsinline controls preload="${autoPlayRinkVideo ? "auto" : "metadata"}" aria-label="${escapeHTML(media.label || "A memory video")}"></video>`
         : `<img src="${escapeHTML(src)}" alt="${escapeHTML(media.label || "A memory photo")}" loading="lazy">`)
       : renderPlaceholder(media, index);
     return `<div class="media-frame ${src ? "has-media" : "is-placeholder"}${media.minimal ? " media-frame--minimal" : ""}" data-media-index="${index}" data-media-type="${type}" data-media-src="${escapeHTML(src)}" data-media-label="${escapeHTML(media.label || "A memory")}" style="--ratio:${escapeHTML(ratio)};--fit:${fit}" role="group" aria-label="${escapeHTML(media.label || "A memory photo")}">${mediaContent}</div>`;
@@ -381,11 +405,18 @@
       </article>`;
   }
 
-  function renderSlideshowPhoto(media, index) {
+  function renderSlideshowPhoto(media, index, role = "", frozenTransform = "") {
+    const motionClass = `slideshow-photo--motion-${index % 4}`;
+    const roleClass = role === "outgoing" ? " slideshow-photo--outgoing" : role === "incoming" ? " slideshow-photo--blend-in" : "";
+    const fit = media.fit === "contain" || media.fit === "fit" ? "contain" : "cover";
     if (media.src) {
-      return `<img class="slideshow-photo" src="${escapeHTML(media.src)}" alt="${escapeHTML(media.label || media.caption || "A favorite memory")}" style="--slide-fit:${media.fit === "contain" ? "contain" : "cover"}" loading="eager" decoding="async">`;
+      const alt = role === "outgoing" ? "" : escapeHTML(media.label || media.caption || "A favorite memory");
+      const decorative = role === "outgoing" ? ' aria-hidden="true"' : "";
+      const frozenStyle = role === "outgoing" && frozenTransform && frozenTransform !== "none" ? `;transform:${escapeHTML(frozenTransform)}` : "";
+      return `<img class="slideshow-photo ${motionClass}${roleClass}" data-slideshow-photo data-photo-index="${index}" src="${escapeHTML(media.src)}" alt="${alt}"${decorative} style="--slide-fit:${fit}${frozenStyle}" loading="eager" decoding="async">`;
     }
-    return `<div class="slideshow-placeholder" data-empty-slot="${index}" role="button" tabindex="0" aria-label="${escapeHTML(media.label || "Add a flashback photo")}. Choose a local preview photo."><span class="slideshow-placeholder-icon">${escapeHTML(media.icon || "♡")}</span><strong>Add this photo</strong><small>Choose a picture for this memory</small><span class="slideshow-placeholder-plus">＋</span></div>`;
+    const placeholderRole = role === "outgoing" ? " slideshow-placeholder--outgoing" : role === "incoming" ? " slideshow-placeholder--blend-in" : "";
+    return `<div class="slideshow-placeholder${placeholderRole}" data-empty-slot="${index}" role="button" tabindex="0" aria-label="${escapeHTML(media.label || "Add a flashback photo")}. Choose a local preview photo."><span class="slideshow-placeholder-icon">${escapeHTML(media.icon || "♡")}</span><strong>Add this photo</strong><small>Choose a picture for this memory</small><span class="slideshow-placeholder-plus">＋</span></div>`;
   }
 
   function renderSlideshowScene(moment) {
@@ -393,6 +424,9 @@
     if (!photos.length) return `<article class="story-scene layout-slideshow" data-art="flashback"><p class="slideshow-empty">Add photo entries to this moment in story.js.</p></article>`;
     const photoIndex = Math.max(0, Math.min(photos.length - 1, slideshowIndices.get(moment.id) || 0));
     const photo = photos[photoIndex];
+    const transition = slideshowTransitions.get(moment.id) || null;
+    slideshowTransitions.delete(moment.id);
+    const outgoingPhoto = transition && transition.fromIndex !== photoIndex ? photos[transition.fromIndex] : null;
     const title = decorateHeadingText(moment.title || "A few moments, all ours.", moment.id);
     const chapter = escapeHTML(moment.chapter || "OUR FAVORITE LITTLE THINGS");
     const date = escapeHTML(photo.date || "A LITTLE MEMORY");
@@ -400,14 +434,15 @@
     const ratioCount = `${pad(photoIndex + 1)} / ${pad(photos.length)}`;
     const indicatorGap = Math.min(3, 100 / Math.max(1, photos.length - 1));
     return `
-      <article class="story-scene layout-slideshow" data-art="flashback">
+      <article class="story-scene layout-slideshow${transition ? " is-photo-changing" : ""}" data-art="flashback">
         <div class="scene-overline"><span class="scene-chapter">${chapter}</span><span class="scene-date">A PHOTO REWIND</span></div>
         <div class="scene-heading slideshow-heading"><h1>${title}</h1><button class="tiny-star tiny-interactive" type="button" aria-label="Collect a tiny heart" title="Tap to collect a tiny heart">✧</button></div>
         <div class="slideshow-progress" role="group" aria-label="Choose a flashback photo" style="--indicator-gap:${indicatorGap}px">
           ${photos.map((item, index) => `<button type="button" class="slideshow-segment ${index < photoIndex ? "is-done" : ""} ${index === photoIndex ? "is-current" : ""}" data-photo-index="${index}" aria-label="Show photo ${index + 1} of ${photos.length}" aria-current="${index === photoIndex ? "step" : "false"}" title="${escapeHTML(item.caption || `Photo ${index + 1}`)}"><span></span></button>`).join("")}
         </div>
-        <div class="slideshow-frame" aria-label="Flashback photo ${photoIndex + 1} of ${photos.length}">
-          ${renderSlideshowPhoto(photo, photoIndex)}
+        <div class="slideshow-frame${transition ? " is-transitioning" : ""}" aria-label="Flashback photo ${photoIndex + 1} of ${photos.length}">
+          ${outgoingPhoto ? renderSlideshowPhoto(outgoingPhoto, transition.fromIndex, "outgoing", transition.fromTransform || "") : ""}
+          ${renderSlideshowPhoto(photo, photoIndex, transition ? "incoming" : "")}
           <button type="button" class="slideshow-tapzone slideshow-tapzone--previous" data-slide-nav="-1" aria-label="Previous flashback photo"><span aria-hidden="true">‹</span></button>
           <button type="button" class="slideshow-tapzone slideshow-tapzone--next" data-slide-nav="1" aria-label="Next flashback photo"><span aria-hidden="true">›</span></button>
           <div class="slideshow-caption"><span class="slideshow-date">${date}</span><p>${caption}</p></div>
@@ -844,6 +879,55 @@
     heartBurst(anchor);
   }
 
+  async function prepareSlideshowImage(media) {
+    if (!media || !media.src) return;
+    const image = new Image();
+    image.decoding = "async";
+    image.src = media.src;
+    try {
+      if (typeof image.decode === "function") {
+        await image.decode();
+        return;
+      }
+    } catch (_) {
+      // A missing/invalid image will be rendered as the existing friendly placeholder.
+    }
+    if (image.complete) return;
+    await new Promise(resolve => {
+      const finish = () => resolve();
+      image.addEventListener("load", finish, { once: true });
+      image.addEventListener("error", finish, { once: true });
+    });
+  }
+
+  async function navigateSlideshowTo(target) {
+    const moment = currentMoment();
+    const photos = Array.isArray(moment.media) ? moment.media : [];
+    if (moment.layout !== "slideshow" || photos.length === 0) return;
+    if (!Number.isInteger(target) || target < 0 || target >= photos.length) return;
+    const currentPhoto = Math.max(0, Math.min(photos.length - 1, slideshowIndices.get(moment.id) || 0));
+    if (target === currentPhoto) { playSound("pop"); return; }
+
+    // Keep the current photo on screen until the incoming photo is decoded. This avoids
+    // briefly fading to the frame background on slower devices or uncached images.
+    const token = (slideshowNavigationTokens.get(moment.id) || 0) + 1;
+    const sceneBeforeWait = stage.querySelector(".story-scene.layout-slideshow");
+    slideshowNavigationTokens.set(moment.id, token);
+    await prepareSlideshowImage(photos[target]);
+    if (currentMoment().id !== moment.id || stage.querySelector(".story-scene.layout-slideshow") !== sceneBeforeWait || slideshowNavigationTokens.get(moment.id) !== token) return;
+
+    const fromIndex = Math.max(0, Math.min(photos.length - 1, slideshowIndices.get(moment.id) || 0));
+    if (target === fromIndex) return;
+    // Freeze the currently visible camera transform at the exact navigation instant,
+    // so the outgoing photo doesn't snap back to its unzoomed position during the dissolve.
+    const visiblePhoto = stage.querySelector(".slideshow-frame .slideshow-photo:not(.slideshow-photo--outgoing)");
+    const fromTransform = visiblePhoto ? getComputedStyle(visiblePhoto).transform : "";
+    slideshowTransitions.set(moment.id, { fromIndex, toIndex: target, direction: target > fromIndex ? 1 : -1, fromTransform });
+    slideshowIndices.set(moment.id, target);
+    playSound("slide");
+    render();
+  }
+
   function navigateSlideshow(delta) {
     const moment = currentMoment();
     const photos = Array.isArray(moment.media) ? moment.media : [];
@@ -852,9 +936,7 @@
     const target = currentPhoto + delta;
     if (target < 0) { previous(); return; }
     if (target >= photos.length) { next(); return; }
-    slideshowIndices.set(moment.id, target);
-    playSound("slide");
-    render();
+    void navigateSlideshowTo(target);
   }
 
   function relationshipDuration(now = new Date()) {
@@ -934,31 +1016,13 @@
     const playing = Boolean(backgroundMusic && !backgroundMusic.paused && !backgroundMusic.ended);
     soundButton.classList.toggle("is-on", playing);
     soundButton.setAttribute("aria-pressed", String(playing));
-    soundButton.setAttribute("aria-label", playing ? "Pause background music" : "Start background music");
+    soundButton.setAttribute("aria-label", playing ? "Pause background music" : musicUnavailable ? "Background music file unavailable" : musicStarted ? "Resume background music" : "Background music starts when you tap to rewind");
     soundButton.title = musicUnavailable
       ? `Add ${MUSIC_SRC} to enable the soundtrack`
-      : playing ? "Pause the looping soundtrack" : "Start the looping soundtrack";
+      : playing ? "Pause the looping soundtrack" : musicStarted ? "Resume the looping soundtrack" : "Tap ‘Tap to rewind’ on the cover to start the soundtrack";
     soundButton.textContent = playing ? "♫" : "♪";
   }
 
-
-  function unbindMusicGesture() {
-    if (!musicGestureBound) return;
-    document.removeEventListener("pointerdown", firstUserGesture, true);
-    document.removeEventListener("keydown", firstUserGesture, true);
-    document.removeEventListener("touchstart", firstUserGesture, true);
-    document.removeEventListener("click", firstUserGesture, true);
-    musicGestureBound = false;
-  }
-
-  function firstUserGesture(event) {
-    if (event && event.target && event.target.closest && event.target.closest("#soundButton")) return;
-    if (musicUnavailable || (backgroundMusic && !backgroundMusic.paused)) {
-      unbindMusicGesture();
-      return;
-    }
-    requestBackgroundMusic(false);
-  }
 
   function requestBackgroundMusic(showFeedback = false) {
     if (!backgroundMusic || musicUnavailable || musicAttemptInFlight || !backgroundMusic.paused) {
@@ -968,7 +1032,7 @@
     }
     musicAttemptInFlight = true;
     backgroundMusic.loop = true;
-    backgroundMusic.volume = 0.38;
+    backgroundMusic.volume = 0.24;
     backgroundMusic.preload = "auto";
     if (!backgroundMusic.getAttribute("src")) {
       backgroundMusic.src = MUSIC_SRC;
@@ -980,7 +1044,6 @@
     Promise.resolve(playRequest).then(() => {
       musicStarted = true;
       musicAttemptInFlight = false;
-      unbindMusicGesture();
       syncMusicButton();
       if (showFeedback) showToast("Our little soundtrack is playing. ♡");
     }).catch(() => {
@@ -997,6 +1060,12 @@
       syncMusicButton();
       return;
     }
+    // The first start is intentionally tied to the cover's “Tap to rewind” CTA.
+    if (!musicStarted) {
+      showToast("Tap ‘Tap to rewind’ on the cover to start our soundtrack. ♡");
+      playSound("boop");
+      return;
+    }
     requestBackgroundMusic(true);
   }
 
@@ -1009,13 +1078,7 @@
       musicAttemptInFlight = false;
       syncMusicButton();
     });
-    // Start fetching the soundtrack immediately, but never start playback before a gesture.
-    backgroundMusic.src = MUSIC_SRC;
-    backgroundMusic.load();
-    document.addEventListener("pointerdown", firstUserGesture, true);
-    document.addEventListener("keydown", firstUserGesture, true);
-    document.addEventListener("touchstart", firstUserGesture, { capture: true, passive: true });
-    document.addEventListener("click", firstUserGesture, true);
+    // Do not preload or autoplay the soundtrack globally. The cover CTA assigns the source and starts it.
   }
 
   function updatePreloadProgress(done, total) {
@@ -1089,12 +1152,43 @@
       return;
     }
     const moment = currentMoment();
+    // Explicitly stop any previous clip before replacing the scene.
+    stage.querySelectorAll("video").forEach(video => {
+      try { video.pause(); } catch (_) { /* Detached media cleanup is best-effort. */ }
+    });
     stopGuestbookWatch();
     markMomentVisited(moment);
     stage.className = `stage theme-${/^[a-z-]+$/.test(moment.theme || "") ? moment.theme : "rose"}`;
     stage.innerHTML = renderScene(moment);
+    // The first-rink clip should begin as soon as its own story card is shown.
+    if (moment.id === "skating-video") {
+      stage.querySelectorAll(".layout-video video[autoplay]").forEach(video => {
+        video.muted = true;
+        video.playsInline = true;
+        try {
+          const playAttempt = video.play();
+          if (playAttempt && typeof playAttempt.catch === "function") playAttempt.catch(() => {});
+        } catch (_) { /* Native autoplay remains the fallback. */ }
+      });
+    }
     updateChrome();
     animateDataCounters();
+    attachSlideshowPhotoTreatment();
+    const transitionFrame = stage.querySelector(".slideshow-frame.is-transitioning");
+    if (transitionFrame) {
+      const transitionControls = Array.from(stage.querySelectorAll(".slideshow-segment, .slideshow-tapzone"));
+      const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reducedMotion) transitionControls.forEach(control => { control.disabled = true; });
+      const finishPhotoTransition = () => {
+        if (!transitionFrame.isConnected) return;
+        // Remove the old layer after the dissolve. Leaving it beneath a moving photo
+        // can expose slivers of the previous image at the edges during pan/zoom.
+        transitionFrame.querySelectorAll(".slideshow-photo--outgoing, .slideshow-placeholder--outgoing").forEach(layer => layer.remove());
+        transitionFrame.classList.remove("is-transitioning");
+        transitionControls.forEach(control => { control.disabled = false; });
+      };
+      window.setTimeout(finishPhotoTransition, reducedMotion ? 0 : 760);
+    }
     updateRelationshipClock();
     startBirthdayGreetingCycle(moment);
     attachMediaErrorHandlers();
@@ -1190,15 +1284,32 @@
     updateLabel();
   }
 
+  function attachSlideshowPhotoTreatment() {
+    stage.querySelectorAll(".slideshow-photo[data-slideshow-photo]").forEach(img => {
+      const classifyPhoto = () => {
+        if (!img.naturalWidth || !img.naturalHeight) return;
+        if (img.naturalWidth / img.naturalHeight > 1.12) {
+          img.classList.add("is-landscape");
+          img.style.setProperty("--slide-fit", "contain");
+        }
+      };
+      if (img.complete) classifyPhoto();
+      else img.addEventListener("load", classifyPhoto, { once: true });
+    });
+  }
+
   function attachMediaErrorHandlers() {
     stage.querySelectorAll(".media-frame img, .slideshow-photo").forEach(img => {
       img.addEventListener("error", () => {
         const frame = img.closest(".media-frame");
         const moment = currentMoment();
         if (img.classList.contains("slideshow-photo")) {
-          const photoIndex = Math.max(0, Math.min((moment.media || []).length - 1, slideshowIndices.get(moment.id) || 0));
+          const activeIndex = Math.max(0, Math.min((moment.media || []).length - 1, slideshowIndices.get(moment.id) || 0));
+          const requestedIndex = Number(img.dataset.photoIndex);
+          const photoIndex = Number.isInteger(requestedIndex) && requestedIndex >= 0 && requestedIndex < (moment.media || []).length ? requestedIndex : activeIndex;
           const photo = moment.media && moment.media[photoIndex];
-          if (photo) img.replaceWith(document.createRange().createContextualFragment(renderSlideshowPhoto({ ...photo, src: "" }, photoIndex)));
+          const role = img.classList.contains("slideshow-photo--outgoing") ? "outgoing" : img.classList.contains("slideshow-photo--blend-in") ? "incoming" : "";
+          if (photo) img.replaceWith(document.createRange().createContextualFragment(renderSlideshowPhoto({ ...photo, src: "" }, photoIndex, role)));
           return;
         }
         if (!frame || frame.dataset.fallbackShown === "true") return;
@@ -1321,14 +1432,16 @@
 
   // Story navigation: buttons, keyboard, clickable progress, and touch swipes.
   soundButton.addEventListener("click", () => {
-    unbindMusicGesture();
     playSound("tap");
     toggleBackgroundMusic();
   });
   backButton.addEventListener("click", previous);
-  nextButton.addEventListener("click", next);
-  brandButton.addEventListener("click", () => { playSound("tap"); goTo(0); });
-  mapButton.addEventListener("click", () => { playSound("tap"); openMap(); });
+  nextButton.addEventListener("click", () => {
+    if (currentIndex === 0 && !musicStarted) requestBackgroundMusic(true);
+    next();
+  });
+  brandButton.addEventListener("click", () => { playSound("pop"); goTo(0); });
+  mapButton.addEventListener("click", () => { playSound("sparkle"); openMap(); });
   mapClose.addEventListener("click", () => { playSound("tap"); closeMap(); });
   viewerClose.addEventListener("click", () => { playSound("tap"); closeViewer(); });
   mediaPicker.addEventListener("change", event => handleLocalPreview(event.target.files && event.target.files[0]));
@@ -1407,7 +1520,9 @@
     if (slideshowProgress) {
       const moment = currentMoment();
       const targetPhoto = Number(slideshowProgress.dataset.photoIndex);
-      if (moment.layout === "slideshow" && Number.isInteger(targetPhoto)) { slideshowIndices.set(moment.id, targetPhoto); playSound("slide"); render(); }
+      if (moment.layout === "slideshow" && Number.isInteger(targetPhoto)) {
+        void navigateSlideshowTo(targetPhoto);
+      }
       return;
     }
     const birthdayGreeting = event.target.closest(".birthday-greeting");
