@@ -111,7 +111,7 @@ Upload the entire folder to a static host such as GitHub Pages, Netlify, or Verc
 
 ## Birthday guestbook + Firestore setup
 
-The public `wishes.html` page is a casual Indonesian-first birthday guestbook written from Aya’s point of view, with the burgundy/cream invitation style inspired by the supplied reference. It is compacted for phones and reveals the other messages after a visitor submits their own wish. The private rewind keeps its existing scrapbook look, uses the same cat-name gate, and adds a WISHES navbar shortcut. The guestbook chapter comes immediately after the private boyfriend letter and uses a polished wine-red/gold palette.
+The public `wishes.html` page is an Indonesian-first birthday guestbook written from Aya’s point of view, with a burgundy/cream invitation look. The wishes feed is visible immediately; visitors can read and save notes without posting first or relying on browser storage. The mobile hero uses a shorter portrait crop, and the public header no longer links back into the private rewind. Aya can open an owner panel directly on `wishes.html` using the existing cat-name answer, reply to wishes, and hide or restore them. Each public wish can also be rendered as a framed PNG birthday card and shared or downloaded.
 
 ### Files added
 
@@ -120,10 +120,9 @@ The public `wishes.html` page is a casual Indonesian-first birthday guestbook wr
 - `firebase-integration.js`: connects the existing, non-module rewind app to Firestore.
 - `firestore.rules`: validation rules for new entries and reply/visibility metadata updates.
 - `index-gate.js`: a cat-name gate for `index.html`.
-- `media/dishwasher-cat.svg`: a temporary hand-drawn cat illustration because the supplied ZIP did not contain a real Dishwasher photo.
-- The private guestbook slide has reply/hide/unhide controls and a copy-link button. Photo attachments open in an enlarged viewer in both the public page and the private rewind; Aya’s saved replies are shown on the public guestbook.
+- The private guestbook slide retains its reply/hide/unhide controls and copy-link button. Photo attachments open in an enlarged viewer in both the public page and the private rewind; Aya’s saved replies are shown on the public guestbook. Permanent deletion remains disabled by the supplied Firestore rules, so owner tools hide/restore public visibility instead.
 
-The portrait in the public page is a compressed WebP crop from the attached invitation, embedded as a Base64 data URI. Optional guest-uploaded photos are also resized, JPEG-compressed, Base64-encoded in the browser, and stored directly in each Firestore document—**Firebase Storage is not used**.
+The public page references Aya’s portrait at `/media/aya.JPG`. Optional guest-uploaded photos are resized, JPEG-compressed, Base64-encoded in the browser, and stored directly in each Firestore document—**Firebase Storage is not used**. The input ZIP did not include the `media/` directory or the image/video assets referenced by the rewind, gate, and wishes page; preserve the existing deployed `media/` directory when updating the site files.
 
 ### Publish the guestbook
 
@@ -138,11 +137,11 @@ The optional image picker rejects non-image files and originals larger than 12 M
 
 ### Important access note
 
-The guestbook intentionally hides other people's notes in the **interface** until the visitor has sent a wish (or has already sent one in that browser). Because the site is static and the guestbook has no sign-in/backend, the rules allow public reads; a technically savvy visitor could read the collection directly rather than going through the form. This is a presentation gate, not strong access control. If you need Firestore itself to enforce “must submit first,” enable Firebase Anonymous Authentication (or add a trusted backend) and change the rules to require a verified per-visitor identity before reads. Also consider enabling Firebase App Check and adding moderation/deletion tooling before sharing the link widely.
+The public feed is intentionally readable without posting first, so no browser cache or local-storage flag is needed. Firestore reads are public. The owner password on `wishes.html` is only a front-end convenience gate, not secure authentication: a technically savvy visitor can inspect client-side code, and current Firestore rules allow public updates to reply/visibility fields. For genuinely private moderation, add Firebase Authentication with an Aya-only account (or a trusted backend/Cloud Function) and update the rules to require that identity. The rules deny permanent document deletion; keep that protection unless you add secure admin authorization. Consider Firebase App Check and rate limiting/spam protection before sharing widely.
 
 ### Replies, hiding messages, and admin access
 
-The final private guestbook chapter lets Aya save a reply to each wish and hide/unhide that wish from the public UI. Those replies appear on `wishes.html`, and photos can be expanded in both views. The chapter is behind the `dishwasher` front-end gate, but the password is not secure server-side authentication. The current static rules validate metadata changes without proving the editor is Aya; use Firebase Authentication with admin-only rules or a trusted backend before relying on it for genuine moderation security.
+Aya can manage replies and hide/unhide messages either in the private rewind chapter or from the owner panel on `wishes.html`. The public page uses the existing `dishwasher` front-end gate. It does not prove the editor’s identity to Firestore; add Firebase Authentication or a trusted backend before relying on it for secure moderation. The included rules do not permit permanent deletion.
 
 ### Private rewind password
 
@@ -150,4 +149,4 @@ The final private guestbook chapter lets Aya save a reply to each wish and hide/
 
 ### Personal assets
 
-The uploaded ZIP had no photos in `media/`, even though `story.js` contains photo placeholders and refers to Dishwasher. The added cat illustration is only a stand-in. Replace `media/dishwasher-cat.svg` with a real photo if you have one, then change the `src` in the gate markup in `index.html` to that photo's path. Other empty rewind photo slots remain as they were.
+The uploaded ZIP had no `media/` directory, even though `story.js`, `index.html`, and `wishes.html` reference assets within it. Those media assets were not available to include in this update. When deploying, update the changed code files but keep the existing live `media/` directory in place so the portrait, cat image, and rewind photos/videos are not removed.
